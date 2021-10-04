@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.TimeUnit;
 
 public class CRMtest {
 
@@ -23,24 +23,23 @@ public class CRMtest {
         driver = new ChromeDriver();
         WebDriverManager.chromedriver().setup();
 
-        AtomicReference<WebDriverWait> webDriverWait = new AtomicReference<>(new WebDriverWait(driver, 10));
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
 
         driver.get(CRM_URL);
 
         login();
 
-        driver.findElement(By.xpath("//a//span[contains(., 'Проекты')]")).isSelected();
+        List<WebElement> navMenuElements = driver.findElements(By.xpath("//a//span[contains(., 'Проекты')]"));
+        WebElement expenceElement = navMenuElements.stream().filter(e -> e.getText().equals("Проекты")).findFirst().get();
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(expenceElement).build().perform();
 
 
+        driver.findElement(By.xpath("//span[.='Все проекты']")).click();
 
-        driver.findElement(By.xpath("//a//span[contains(., 'Все проекты')]")).click();
-
-        webDriverWait.get().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a//span[contains(., 'Все проекты')]")));
-        webDriverWait.get().until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a//span[contains(., 'Все проекты')]"))));
-        driver.findElement(By.xpath("//a//span[contains(., 'Все проекты')]")).click();
-
-        webDriverWait.get().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]")));
-        webDriverWait.get().until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]"))));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]")));
+        webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]"))));
         driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]")).click();
 
 
