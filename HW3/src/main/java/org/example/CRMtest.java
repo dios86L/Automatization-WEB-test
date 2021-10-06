@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 public class CRMtest {
 
@@ -42,12 +42,13 @@ public class CRMtest {
         webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]"))));
         driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]")).click();
 
-
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='crm_project[name]']")));
         driver.findElement(By.xpath("//input[@name='crm_project[name]']")).sendKeys("test");
 
         driver.findElement(By.xpath("//span[contains(.,'Укажите организацию')]")).click();
 
-        driver.findElement(By.xpath("//li//div[contains(.,'12323142342134')]")).click();
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='12323142342134']")));
+        driver.findElement(By.xpath("//div[text()='12323142342134']")).click();
 
         Select priority = new Select(
                 driver.findElement(By.xpath("//select[@name='crm_project[priority]']")));
@@ -73,10 +74,11 @@ public class CRMtest {
                 driver.findElement(By.xpath("//select[@name='crm_project[manager]']")));
         manager.selectByVisibleText("Амелин Владимир");
 
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@id,'s2id_crm_project_contactMain-uid')]")));
+        driver.findElement(By.xpath("//div[contains(@id,'s2id_crm_project_contactMain-uid')]")).click();
 
-        driver.findElement(By.xpath("//div[@id='select2-drop-mask']")).click();
-
-        driver.findElement(By.xpath("//li//div[contains(.,'1111 Ольга')]")).click();
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='1111 Ольга']")));
+        driver.findElement(By.xpath("//div[text()='1111 Ольга']")).click();
 
         driver.findElement(By.xpath("//button[contains(., 'Сохранить и закрыть')]")).click();
 
