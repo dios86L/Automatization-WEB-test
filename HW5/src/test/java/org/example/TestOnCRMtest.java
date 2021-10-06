@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -33,10 +34,11 @@ public class TestOnCRMtest {
     }
 
     @Test
-    void testIn() throws InterruptedException {
+    public void testIn() throws InterruptedException {
         Actions actions = new Actions(driver);
         driver.get("https://crm.geekbrains.space/project/create/");
 
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='crm_project[name]']")));
         driver.findElement(By.xpath("//input[@name='crm_project[name]']")).sendKeys("test");
 
         Assertions.assertEquals("test", driver.findElement(By.xpath("//input[@name='crm_project[name]']")).getText());
@@ -45,14 +47,16 @@ public class TestOnCRMtest {
     }
 
     @Test
-    void name() throws InterruptedException {
+    public void name() throws InterruptedException {
         Actions actions = new Actions(driver);
         driver.get("https://crm.geekbrains.space/project/create/");
 
-        driver.findElement(By.xpath("//span[contains (., 'Укажите организацию')]")).click();
-        driver.findElement(By.xpath("//li//div[contains(.,'12323142342134')]")).click();
+        driver.findElement(By.xpath("//span[contains(.,'Укажите организацию')]")).click();
 
-        Assertions.assertEquals("12323142342134", driver.findElement(By.xpath("//li//div[contains(.,'12323142342134')]")).getText());
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='12323142342134']")));
+        driver.findElement(By.xpath("//div[text()='12323142342134']")).click();
+
+        Assertions.assertEquals("12323142342134", driver.findElement(By.xpath("//div[text()='12323142342134']")).getText());
 
         Thread.sleep(5000);
     }
