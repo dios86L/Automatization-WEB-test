@@ -1,11 +1,8 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,7 +30,7 @@ public class TestOnCRMtest {
         login();
     }
 
-    @Test
+   @Test
     public void testIn() throws InterruptedException {
         Actions actions = new Actions(driver);
         driver.get("https://crm.geekbrains.space/project/create/");
