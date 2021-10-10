@@ -44,6 +44,7 @@ public class CRMtest {
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='crm_project[name]']")));
         driver.findElement(By.xpath("//input[@name='crm_project[name]']")).sendKeys("test");
 
+        Thread.sleep(5000);
         driver.findElement(By.xpath("//span[contains(.,'Укажите организацию')]")).click();
 
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='12323142342134']")));
