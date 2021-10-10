@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+
 public class CRMtest {
 
     private static WebDriver driver;
@@ -34,16 +35,17 @@ public class CRMtest {
         Actions actions = new Actions(driver);
         actions.moveToElement(expenceElement).build().perform();
 
+
         driver.findElement(By.xpath("//span[.='Все проекты']")).click();
 
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]")));
         webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]"))));
         driver.findElement(By.xpath("//div[@class='btn-group']//a[contains(., 'Создать проект')]")).click();
 
-
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='crm_project[name]']")));
         driver.findElement(By.xpath("//input[@name='crm_project[name]']")).sendKeys("test");
 
+        Thread.sleep(5000);
         driver.findElement(By.xpath("//span[contains(.,'Укажите организацию')]")).click();
 
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='12323142342134']")));
@@ -72,7 +74,6 @@ public class CRMtest {
         Select manager = new Select(
                 driver.findElement(By.xpath("//select[@name='crm_project[manager]']")));
         manager.selectByVisibleText("Амелин Владимир");
-
 
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@id,'s2id_crm_project_contactMain-uid')]")));
         driver.findElement(By.xpath("//div[contains(@id,'s2id_crm_project_contactMain-uid')]")).click();
